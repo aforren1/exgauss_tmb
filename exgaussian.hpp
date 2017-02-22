@@ -19,6 +19,6 @@ namespace exgaussian {
     template<class Type>
     Type rexgaussian(Type mu, Type sigma, Type nu) 
     {
-        return (rnorm(mu, sigma) + rexp(1/nu));
+        return (rnorm(mu, sigma) + rexp(nu));
     }
 }
