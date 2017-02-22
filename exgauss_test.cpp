@@ -10,14 +10,10 @@ Type objective_function<Type>::operator() ()
     PARAMETER(nu);
 
     Type nll = 0;
-    for(int total = 0; total < y.size(); total++) {
-        nll -= exgaussian::dexgaussian(y[total], mu, sigma, nu, true);
-    }
+    nll -= exgaussian::dexgaussian(y, mu, sigma, nu, true).sum();
 
     SIMULATE {
-        for(int total = 0; total < y.size(); total++) {
-            y[total] = exgaussian::rexgaussian(mu, sigma, nu);
-        }
+        y = exgaussian::rexgaussian(y.size(), mu, sigma, nu);
         REPORT(y);
     }
     return nll;
