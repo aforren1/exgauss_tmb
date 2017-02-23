@@ -7,15 +7,6 @@ dat <- data.frame(y = rnorm(n, 300, 50) + rexp(n, 1/80))
 
 # try to recover via different packages
 
-# roughly 30s per chain, converges easily though
-# my branch is marginally more performant
-m_b <- brm(y ~ 1, data = dat,
-           family = exgaussian(),
-           prior = c(prior('normal(300, 20)', class = 'Intercept'),
-                     prior('normal(50, 10)', class = 'sigma'),
-                     prior('normal(80, 10)', class = 'beta')),
-           seed = 1)
-
 data_list <- list(y = dat$y)
 params <- list(mu = 300, sigma = 50, nu = 80)
 
@@ -44,3 +35,12 @@ df <- data.frame(estimate=as.vector(sim), parameter=names(obj$par)[row(sim)])
 ggplot(df, aes(x = estimate, fill = parameter)) + 
 geom_density() + 
 facet_wrap(~parameter, scales = 'free_x')
+
+# roughly 30s per chain, converges easily though
+# my branch is marginally more performant
+m_b <- brm(y ~ 1, data = dat,
+           family = exgaussian(),
+           prior = c(prior('normal(300, 20)', class = 'Intercept'),
+                     prior('normal(50, 10)', class = 'sigma'),
+                     prior('normal(80, 10)', class = 'beta')),
+           seed = 1)

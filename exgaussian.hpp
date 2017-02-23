@@ -39,7 +39,11 @@ namespace exgaussian {
         temp = x - mu - (pow(sigma, 2)/nu);
         out = -log(nu) - (temp + (pow(sigma, 2)/(2 * nu)))/nu + 
                    log(pnorm(temp/sigma));
-        if (give_log) return out; else return exp(out);
+        if (!give_log) 
+            return CppAD::CondExpGe(x, Type(0), exp(out), Type(0));
+        else 
+            return CppAD::CondExpGe(x, Type(0), out, Type(-INFINITY));
+        
     }
     VECTORIZE5_tttti(dexgaussian)
 
