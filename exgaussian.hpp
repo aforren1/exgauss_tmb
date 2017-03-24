@@ -51,7 +51,7 @@ namespace exgaussian {
     Type pexgaussian(Type q, Type mu, Type sigma,
                      Type tau, int lower_tail = 1, int give_log = 0)
     {
-        Type sig_sq;
+        Type sig_sq = pow(sigma, 2);
         Type z = q - mu - sig_sq/tau;
         Type out = pnorm((q - mu)/sigma) - pnorm(z/sigma) *
               exp(pow((mu + sig_sq)/tau, 2) - pow(mu, 2) - 2 * q * sig_sq/tau) / (2 * sig_sq));
