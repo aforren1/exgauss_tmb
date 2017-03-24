@@ -8,7 +8,7 @@ dat <- data.frame(y = rnorm(n, 300, 50) + rexp(n, 1/80))
 # try to recover via different packages
 
 data_list <- list(y = dat$y)
-params <- list(mu = 300, sigma = 50, nu = 80)
+params <- list(mu = 300, sigma = 50, tau = 80)
 
 compile('exgauss_test.cpp')
 dyn.load(dynlib('exgauss_test'))
